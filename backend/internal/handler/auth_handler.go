@@ -57,8 +57,11 @@ func (h *AuthHandler) ForgotPassword(c *gin.Context) {
 
 	err := h.authService.ForgotPassword(&input)
 	if err != nil {
-		// Do not leak error details for security reasons in prod, but for now...
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		// Log the error internally
+		// log.Printf("Forgot password error: %v", err)
+
+		// ALWAYS return success to prevent Email Enumeration attacks
+		c.JSON(http.StatusOK, gin.H{"message": "If your email is registered, you will receive a reset link."})
 		return
 	}
 

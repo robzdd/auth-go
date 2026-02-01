@@ -35,6 +35,9 @@ func GenerateToken(userID uint64, email string, secret string, expiredIn string)
 
 func ValidateToken(signedToken string, secret string) (*JWTClaim, error) {
 	token, err := jwt.ParseWithClaims(signedToken, &JWTClaim{}, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("unexpected signing method")
+		}
 		return []byte(secret), nil
 	})
 

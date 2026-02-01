@@ -39,7 +39,9 @@ func (h *UserHandler) GetAllUsers(c *gin.Context) {
 
 	users, total, err := h.userService.GetAllUsers(page, limit, search)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		// Log error internally, don't return raw error to client
+		// log.Println("Error fetching users:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch users"})
 		return
 	}
 

@@ -1,0 +1,18 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+main
+
+# Env
+.env
+
+# Go
+vendor/
+go.work
+
+# IDE
+.vscode/
+.idea/

@@ -44,6 +44,7 @@ func main() {
 
 	// 7. Setup Middleware
 	r.Use(middleware.CORSMiddleware())
+	r.Use(middleware.SecurityHeadersMiddleware())
 
 	// 8. Define Routes
 	api := r.Group("/api")
